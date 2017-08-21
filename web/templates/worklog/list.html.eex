@@ -1,0 +1,46 @@
+  <div class="small-10 small-centered columns">
+      <h2><%= @title %></h2>
+      <%= if @logs != %{} do %>
+      <%# iterate map with a comprehension %>
+      <%= for {{date, user}, times} <- @logs do %>
+              <h4> <%= user %> </h4>
+              <%= date %>
+              <table role="grid" class="">
+                  <thead>
+                      <tr>
+                          <th width="200">Item</th>
+                          <th>Time Spent</th>
+                          <th>Seconds</th>
+                          <th>Started</th>
+                          <th>Created</th>
+                          <th>Comment</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <%= for time <- times do %>
+                          <tr>
+                            <td>
+                                <a href="<%= @url <> "/browse/" <> time.issue_id %>" target="_blank">
+                                    <em><%= time.issue_id %></em>
+                                </a>
+                                <div><%= time.description %></div>
+                            </td>    
+                            <td><%= time.time_spent %></td>    
+                            <td><%= time.seconds %></td>    
+                            <td><%= time.started %></td>    
+                            <td><%= time.created %></td>    
+                            <td><%= time.comment %></td>    
+                          </tr>
+                      <% end %>
+                  </tbody>
+              </table>
+          <% end %>
+      <% else %>
+      There is nothing to see here
+      <% end %>
+  </div>
+</div>
+<div style="float: right; margin: 100px 50px;">
+    <a href="<%= worklog_path(@conn, :index)%>" style="margin-right: 20px;">Back</a>
+    <a href="<%= worklog_path(@conn, :logout) %>">Log out</a>
+</div>

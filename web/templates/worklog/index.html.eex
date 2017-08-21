@@ -1,0 +1,30 @@
+<div class="small-5 small-centered columns">
+    <h3>
+    Hola <%= @name %>
+    </h3>
+    <p>
+    Select a filter to start:
+    <p>
+    <ul class="circle">
+    <li>
+        <a href="<%= worklog_path(@conn, :today)%>">Today</a>
+    </li>
+    <li>
+        <a href="<%= worklog_path(@conn, :yesterday)%>">Yesterday</a>
+    </li>
+    <li>
+        <a href="<%= worklog_path(@conn, :this_week)%>">This Week</a>
+    </li>
+    <li>
+        <a href="<%= worklog_path(@conn, :last_week)%>">Last Week</a>
+    </li>
+    <!-- 
+    <li>
+        <a>This Month</a>
+    </li>
+    -->
+    </ul>
+</div>
+<div style="float: right; margin: 100px 50px;">
+    <a href="<%= worklog_path(@conn, :logout)%>">Log out</a>
+</div>

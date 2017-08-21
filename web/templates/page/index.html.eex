@@ -1,0 +1,33 @@
+
+<div class="center-main">
+  <div>
+      <%= for server <- @servers do %>
+          <a class="server-selector" 
+               href="<%= login_path(@conn, :index, server.name)%>">
+              <div class="image">
+                  <img src="images/<%= server.img %>">
+              </div>
+              <div>
+                  <h5>
+                      <%= server.name %>
+                      <small><%= server.url %></small>
+                  </h5>
+              </div>
+              <div class="arrow"></div>
+          </a>
+      <% end %>
+      <a class="server-selector" 
+           href="<%= login_path(@conn, :index, "custom")%>">
+          <div class="image">
+              <img src="images/custom-logo.png">
+          </div>
+          <div>
+              <h5>
+                  Other
+                  <small>Use another server</small>
+              </h5>
+          </div>
+          <div class="arrow"></div>
+      </a>
+  </div>
+</div>

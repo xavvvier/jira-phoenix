@@ -1,0 +1,62 @@
+.logo {
+  width: 519px;
+  height: 71px;
+  display: inline-block;
+  margin-bottom: 1em;
+  background-image: url("/images/phoenix.png");
+  background-size: 519px 71px;
+}
+
+.center-main{
+    width: 300px;
+    margin: auto auto;
+}
+
+.server-selector{
+    width: 300px;
+    height: 100px;
+    border: 1px solid #cacaca;
+    padding: 10px;
+    clear: both;
+    margin: 10px 0;
+    cursor: pointer;
+    display: block;
+}
+.server-selector:hover{
+    border-color: steelblue;
+    box-shadow: 2px 2px 1px 0px lightblue;
+}
+.server-selector .image{
+    width: 100px;
+}
+.server-selector img{
+    height: 75px;
+}
+.server-selector>div{
+    float: left;
+}
+.server-selector h5{
+    margin-top:25px;
+    width: 155px;
+    font-size:14px;
+}
+.server-selector small{
+    display: block;
+    font-size: 84%;
+    margin-top: 5px;
+}
+.server-selector .arrow{
+    margin-top: 30px;
+    width: 1.1em;
+    height: 1.1em;
+    border-right: 0.2em solid black;
+    border-top: 0.2em solid black;
+    transform: rotate(45deg);
+}
+
+.log-in-form {
+    border: 1px solid #cacaca;
+    padding: 1rem;
+    border-radius: 0;
+    margin-top: 50px;
+}

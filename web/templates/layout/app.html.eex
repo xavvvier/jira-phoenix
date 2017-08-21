@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Query the worklogs made on jira">
+    <meta name="author" content="Edison Javier Gonzalez">
+
+    <title>Jira Worklogs</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css"/>
+  </head>
+
+  <body>
+
+      <%= if get_flash(@conn, :info) do %>
+          <p class="alert-box info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+          <p class="alert-box warning" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
+
+    <%= render @view_module, @view_template, assigns %>
+
+    <script src="<%= static_path(@conn, "/js/jquery-3.2.1.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<div class="small-5 small-centered columns">
+    <form class="log-in-form" action="" method="post">
+        <input type="hidden" name="_csrf_token" id="" value="<%= get_csrf_token()%>" />
+        <h4 class="text-center">Log in with your Jira credentials</h4>
+        <%= if (@user.server == "custom") do %>
+            <label>
+                Server
+                <input type="text" name="url" value="" placeholder="https://myjiraserver.com"/>
+            </label>
+        <% end %>
+        <div>
+            <label>
+                User
+                <input type="text" name="userName" value="" placeholder="username" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Password
+                <input type="password" name="password" value="" placeholder="password"/>
+            </label>
+        </div>
+        <input type="submit" value="Login" class="button expanded"/>
+    </form>
+</div>
