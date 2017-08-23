@@ -9,10 +9,11 @@
                   <thead>
                       <tr>
                           <th width="200">Item</th>
-                          <th>Time Spent</th>
-                          <th>Seconds</th>
+                          <th>
+                              Time Spent
+                              <span class="label"><%= total_time(times) %></span>
+                          </th>
                           <th>Started</th>
-                          <th>Created</th>
                           <th>Comment</th>
                       </tr>
                   </thead>
@@ -25,10 +26,12 @@
                                 </a>
                                 <div><%= time.description %></div>
                             </td>    
-                            <td><%= time.time_spent %></td>    
-                            <td><%= time.seconds %></td>    
-                            <td><%= time.started %></td>    
-                            <td><%= time.created %></td>    
+                            <td title="Interpreted by Jira: <%= time.time_spent %>">
+                                <%= seconds_to_hours(time.seconds) %>
+                            </td>    
+                            <td title="Created at: <%= format_iso_date(time.created) %>">
+                                <%= format_iso_date(time.started) %>
+                            </td>    
                             <td><%= time.comment %></td>    
                           </tr>
                       <% end %>
