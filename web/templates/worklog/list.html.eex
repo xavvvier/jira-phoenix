@@ -2,10 +2,11 @@
       <h2><%= @title %></h2>
       <%= if @logs != %{} do %>
       <%# iterate map with a comprehension %>
-      <%= for {{date, user}, times} <- @logs do %>
+      <div>
+          <%= for {{date, user}, times} <- @logs do %>
               <h4> <%= user %> </h4>
               <%= date %>
-              <table role="grid" class="">
+              <table role="grid" class="large-12 medium-12">
                   <thead>
                       <tr>
                           <th width="200">Item</th>
@@ -38,6 +39,7 @@
                   </tbody>
               </table>
           <% end %>
+      </div>
       <% else %>
       There is nothing to see here
       <% end %>
