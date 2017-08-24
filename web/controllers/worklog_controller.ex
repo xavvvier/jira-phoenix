@@ -1,6 +1,6 @@
 defmodule Jira.WorklogController do
   use Jira.Web, :controller
-  use Timex
+  alias Jira.ServerTime
 
   plug :authenticate
 
@@ -28,19 +28,8 @@ defmodule Jira.WorklogController do
     |> halt()
   end
 
-  defp display(conn, filter) do
-    user = get_session(conn, :usr)
-    filter = %{filter | user: user.user}
-    logs = JiraLog.list_logs(filter, user)
-           |> Enum.group_by(fn item ->
-             #group by date and user
-             {String.slice(item.started, 0..9), item.user}
-           end)
-    render conn, "list.html", logs: logs, url: user.server
-  end
-
   def today(conn, _params) do
-    today = DateTime.to_date(Timex.local)
+    today = ServerTime.today()
     filter = %WorklogFilter{
       date_from: today,
       date_to: today}
@@ -50,10 +39,7 @@ defmodule Jira.WorklogController do
   end
 
   def yesterday(conn, _params) do
-    yesterday = 
-      Timex.local
-      |> DateTime.to_date
-      |> Timex.shift(days: -1)
+    yesterday = ServerTime.yesterday()
     filter = %WorklogFilter{
       date_from: yesterday,
       date_to: yesterday}
@@ -63,8 +49,7 @@ defmodule Jira.WorklogController do
   end
 
   def this_week(conn, _params) do
-    beginning = beginning_of_week()
-    end_of_week = Timex.shift(beginning, days: 6)
+    {beginning, end_of_week} = ServerTime.this_week()
     filter = %WorklogFilter{
       date_from: beginning,
       date_to: end_of_week}
@@ -74,8 +59,7 @@ defmodule Jira.WorklogController do
   end
 
   def last_week(conn, _params) do
-    beginning = beginning_of_last_week()
-    end_of_week = Timex.shift(beginning, days: 6)
+    {beginning, end_of_week} = ServerTime.last_week()
     filter = %WorklogFilter{
       date_from: beginning,
       date_to: end_of_week}
@@ -84,15 +68,16 @@ defmodule Jira.WorklogController do
     |> display(filter)
   end
 
-  defp beginning_of_week do
-    Timex.local
-    |> DateTime.to_date
-    |> Timex.beginning_of_week
-  end
 
-  defp beginning_of_last_week do
-    beginning_of_week()
-    |> Timex.shift(days: -7)
+  defp display(conn, filter) do
+    user = get_session(conn, :usr)
+    filter = %{filter | user: user.user}
+    logs = JiraLog.list_logs(filter, user)
+           |> Enum.group_by(fn item ->
+             #group by date and user
+             {String.slice(item.started, 0..9), item.user}
+           end)
+    render conn, "list.html", logs: logs, url: user.server
   end
 
 end
