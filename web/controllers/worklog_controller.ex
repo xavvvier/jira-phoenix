@@ -3,6 +3,7 @@ defmodule Jira.WorklogController do
   alias Jira.ServerTime
 
   plug :authenticate
+  plug :put_image
 
   defp authenticate(conn, _) do
     case get_session(conn, :usr) do
@@ -14,6 +15,11 @@ defmodule Jira.WorklogController do
       _ ->
         conn
     end
+  end
+
+  defp put_image(conn, _) do
+    server_img = get_session(conn, :server_img)
+    assign(conn, :server_img, server_img)
   end
 
   def index(conn, _params) do
@@ -68,16 +74,21 @@ defmodule Jira.WorklogController do
     |> display(filter)
   end
 
+  defp firts_not_nil(nil, b), do: b
+  defp firts_not_nil("", b), do: b
+  defp firts_not_nil(a, _), do: a
 
   defp display(conn, filter) do
-    user = get_session(conn, :usr)
-    filter = %{filter | user: user.user}
-    logs = JiraLog.list_logs(filter, user)
+    user_in_session = get_session(conn, :usr)
+    user_query_string = conn.params["u"]
+    user_to_query = firts_not_nil(user_query_string, user_in_session.user)
+    filter = %{filter | user: user_to_query}
+    logs = JiraLog.list_logs(filter, user_in_session)
            |> Enum.group_by(fn item ->
              #group by date and user
              {String.slice(item.started, 0..9), item.user}
            end)
-    render conn, "list.html", logs: logs, url: user.server
+    render conn, "list.html", logs: logs, url: user_in_session.server
   end
 
 end

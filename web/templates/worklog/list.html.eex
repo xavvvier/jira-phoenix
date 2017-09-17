@@ -1,4 +1,5 @@
   <div class="small-10 small-centered columns">
+      <img class="small-image" src="images/<%= @server_img %>">
       <h2><%= @title %></h2>
       <%= if @logs != %{} do %>
       <%# iterate map with a comprehension %>

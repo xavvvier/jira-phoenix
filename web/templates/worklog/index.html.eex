@@ -1,6 +1,7 @@
 <div class="small-5 small-centered columns">
+    <img class="small-image" src="images/<%= @server_img %>">
     <h3>
-    Hola <%= @name %>
+    Hey, <%= @name %>
     </h3>
     <p>
     Select a filter to start:
