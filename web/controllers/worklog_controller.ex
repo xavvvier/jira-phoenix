@@ -74,6 +74,26 @@ defmodule Jira.WorklogController do
     |> display(filter)
   end
 
+  def this_month(conn, _params) do
+    {beginning, end_of_month} = ServerTime.this_month()
+    filter = %WorklogFilter{
+      date_from: beginning,
+      date_to: end_of_month}
+    conn
+    |> assign(:title, "This Month")
+    |> display(filter)
+  end
+
+  def last_month(conn, _params) do
+    {beginning, end_of_month} = ServerTime.last_month()
+    filter = %WorklogFilter{
+      date_from: beginning,
+      date_to: end_of_month}
+    conn
+    |> assign(:title, "Last Month")
+    |> display(filter)
+  end
+
   defp firts_not_nil(nil, b), do: b
   defp firts_not_nil("", b), do: b
   defp firts_not_nil(a, _), do: a

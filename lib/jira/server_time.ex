@@ -31,6 +31,22 @@ defmodule Jira.ServerTime do
     {beginning, end_of_week}
   end
 
+  def this_month() do
+    beginning = beginning_of_month()
+    end_of_month = now()
+                   |> DateTime.to_date
+    {beginning, end_of_month}
+  end
+
+  def last_month() do
+    beginning = beginning_of_last_month()
+    end_of_month = 
+      beginning
+      |> Timex.shift(months: 1)
+      |> Timex.shift(days: -1)
+    {beginning, end_of_month}
+  end
+
   defp beginning_of_week do
     now()
     |> DateTime.to_date
@@ -40,6 +56,17 @@ defmodule Jira.ServerTime do
   defp beginning_of_last_week do
     beginning_of_week()
     |> Timex.shift(days: -7)
+  end
+  
+  defp beginning_of_month do
+    now()
+    |> DateTime.to_date
+    |> Timex.beginning_of_month
+  end
+
+  defp beginning_of_last_month do
+    beginning_of_month()
+    |> Timex.shift(months: -1)
   end
 
 end

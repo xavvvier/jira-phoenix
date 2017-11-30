@@ -24,6 +24,8 @@ defmodule Jira.Router do
     get "/yesterday", WorklogController, :yesterday
     get "/thisweek", WorklogController, :this_week
     get "/lastweek", WorklogController, :last_week
+    get "/thismonth", WorklogController, :this_month
+    get "/lastmonth", WorklogController, :last_month
   end
 
   # Other scopes may use custom stacks.
